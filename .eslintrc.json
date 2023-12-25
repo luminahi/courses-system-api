@@ -1,6 +1,6 @@
 {
     "env": {
-        "browser": true,
+        "node": true,
         "es2021": true
     },
     "extends": [
@@ -15,6 +15,7 @@
     },
     "plugins": ["@typescript-eslint", "react"],
     "rules": {
-        "no-tabs": "warn"
+        "no-tabs": "warn",
+        "@typescript-eslint/no-unused-vars": "warn"
     }
 }

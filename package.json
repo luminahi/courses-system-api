@@ -6,6 +6,11 @@
     "scripts": {
         "test": "NODE_ENV=test node --test",
         "dev": "tsx --watch --env-file=.env src/index.ts",
+        "migrate:test": "npx tsx ./node_modules/knex/bin/cli.js --knexfile ./src/server/database/knex/Environment.ts migrate:make test",
+        "knex:migrate": "npx tsx ./node_modules/knex/bin/cli.js --knexfile ./src/server/database/knex/Environment.ts migrate:latest",
+        "knex:rollback": "npx tsx ./node_modules/knex/bin/cli.js --knexfile ./src/server/database/knex/Environment.ts migrate:rollback",
+        "knex:rollback-all": "npx tsx ./node_modules/knex/bin/cli.js --knexfile ./src/server/database/knex/Environment.ts migrate:rollback --all",
+        "knex:seed": "npx tsx ./node_modules/knex/bin/cli.js --knexfile ./src/server/database/knex/Environment.ts seed:run",
         "watch": "tsc --watch",
         "build": "tsc",
         "start": "node --env-file=.env dist/index.js"
@@ -28,7 +33,7 @@
         "@typescript-eslint/parser": "^6.15.0",
         "eslint": "^8.56.0",
         "eslint-plugin-react": "^7.33.2",
-        "sqlite": "^5.1.1",
+        "sqlite3": "^5.1.6",
         "supertest": "^6.3.3",
         "tsx": "^4.7.0",
         "typescript": "^5.3.3"
