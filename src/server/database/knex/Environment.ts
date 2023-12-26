@@ -1,12 +1,13 @@
 import { Knex } from "knex";
 import path from "path";
+import { fileURLToPath } from "url";
 
 export const development: Knex.Config = {
     client: "sqlite3",
     useNullAsDefault: true,
     connection: {
         filename: path.resolve(
-            path.dirname("."),
+            path.dirname(fileURLToPath(import.meta.url)),
             "..",
             "..",
             "..",
@@ -15,19 +16,18 @@ export const development: Knex.Config = {
         ),
     },
     migrations: {
-        directory: path.resolve(path.dirname("."), "..", "migrations"),
+        directory: path.resolve(
+            path.dirname(fileURLToPath(import.meta.url)),
+            "..",
+            "migrations"
+        ),
     },
     seeds: {
-        directory: path.resolve(path.dirname("."), "..", "seeds"),
-    },
-    pool: {
-        afterCreate: (
-            connection: { run: (str: string) => void },
-            done: () => void
-        ) => {
-            connection.run("PRAGMA foreign_keys = ON");
-            done();
-        },
+        directory: path.resolve(
+            path.dirname(fileURLToPath(import.meta.url)),
+            "..",
+            "seeds"
+        ),
     },
 };
 

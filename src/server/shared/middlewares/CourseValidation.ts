@@ -1,15 +1,12 @@
 import * as yup from "yup";
+import { ICourse } from "src/server/database/models";
 import { RequestHandler } from "express";
 
-interface ICourse {
-    id: string;
-    name: string;
-}
-
-const courseBodyValidation: yup.Schema<ICourse> = yup.object().shape({
-    id: yup.string().required(),
-    name: yup.string().required(),
-});
+const courseBodyValidation: yup.Schema<Omit<ICourse, "id">> = yup
+    .object()
+    .shape({
+        name: yup.string().required(),
+    });
 
 const courseBodyDataValidation: RequestHandler = async (req, res, next) => {
     try {

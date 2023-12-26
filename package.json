@@ -13,10 +13,10 @@
         "knex:seed": "npx tsx ./node_modules/knex/bin/cli.js --knexfile ./src/server/database/knex/Environment.ts seed:run",
         "watch": "tsc --watch",
         "build": "tsc",
-        "start": "node --env-file=.env dist/index.js"
+        "start": "node --env-file=.env build/index.js"
     },
     "keywords": [
-        "courses"
+        "api"
     ],
     "author": "Alex Lima",
     "license": "ISC",
