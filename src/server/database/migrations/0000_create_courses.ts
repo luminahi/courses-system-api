@@ -1,5 +1,5 @@
 import type { Knex } from "knex";
-import { ETableNames } from "../seeds/ETableNames";
+import { ETableNames } from "../seeds/ETableNames.js";
 
 export function up(knex: Knex) {
     return knex.schema
