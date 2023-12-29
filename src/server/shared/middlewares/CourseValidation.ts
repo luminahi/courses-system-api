@@ -10,14 +10,13 @@ const courseBodyValidation: yup.Schema<Omit<ICourse, "id">> = yup
 
 const courseBodyDataValidation: RequestHandler = async (req, res, next) => {
     try {
-        const body = await courseBodyValidation.validate(req.body, {
+        await courseBodyValidation.validate(req.body, {
             abortEarly: false,
         });
-        console.log(body);
         next();
-    } catch (e) {
-        if (e instanceof yup.ValidationError) {
-            return res.status(400).json({ errors: { ...e.errors } });
+    } catch (err) {
+        if (err instanceof yup.ValidationError) {
+            return res.status(400).json({ errors: { ...err.errors } });
         }
     }
 };
