@@ -1,15 +1,15 @@
 import { RequestHandler } from "express";
 import { CoursesProvider } from "../../database/providers/courses/index.js";
-import { ParamsRequest } from "../../../server/shared/@types/sharedTypes.js";
 
 const getById: RequestHandler = async (req, res) => {
     try {
-        const result = await CoursesProvider.getById(
-            (<unknown>req.params) as ParamsRequest
-        );
+        const { id } = req.params;
+        if (!id) throw new Error("bad param");
+        const result = await CoursesProvider.getById(Number(id));
         return res.status(200).json({ result });
-    } catch (err) {
-        return res.status(404).json({ result: "not found" });
+    } catch (err: unknown) {
+        if (err instanceof Error)
+            return res.status(404).json({ error: err.message });
     }
 };
 

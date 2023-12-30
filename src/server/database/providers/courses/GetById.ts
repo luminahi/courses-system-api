@@ -1,18 +1,24 @@
 import { Knex } from "../../knex/index.js";
+import { ICourse } from "../../models/Course.js";
 import { ETableNames } from "../../seeds/ETableNames.js";
 
-const getById = async (course: { id: number }): Promise<string | Error> => {
+const getById = async (id: number): Promise<ICourse> => {
     try {
-        const [result]: { name: string }[] = await Knex(ETableNames.course)
-            .select("name")
-            .where({ id: course.id });
-        if (typeof result?.name !== "string")
+        const result: ICourse = await Knex(ETableNames.course)
+            .select("id", "name")
+            .where({ id })
+            .first();
+        if (
+            !result ||
+            typeof result.id !== "number" ||
+            typeof result.name !== "string"
+        )
             throw new Error("error at getting course");
-        return result.name;
+        return result;
     } catch (err: unknown) {
         if (err instanceof Error) throw err;
     }
-    return new Error("Critical Error");
+    throw new Error("Critical Error");
 };
 
 export { getById };

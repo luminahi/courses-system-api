@@ -1,6 +1,6 @@
 import * as yup from "yup";
-import { ICourse } from "src/server/database/models";
 import { RequestHandler } from "express";
+import { ICourse } from "../../../../database/models/index.js";
 
 const bodySchema: yup.Schema<Omit<ICourse, "id">> = yup.object().shape({
     name: yup.string().required(),

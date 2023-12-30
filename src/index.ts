@@ -1,6 +1,6 @@
 import { server } from "./server/Server.js";
 
-const port = (process.env.PORT || 3000) as number;
+const port = Number(process.env.PORT) || 3000;
 const hostname = process.env.HOSTNAME || "localhost";
 
 server.listen(port, hostname, () => {
