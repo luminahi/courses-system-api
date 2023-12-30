@@ -8,11 +8,11 @@ export function up(knex: Knex) {
             table.string("name", 64).index().notNullable();
             table.comment("table for registered courses");
         })
-        .then(() => console.log(`# Created table ${ETableNames.course}`));
+        .then(() => console.log(`# Created table: ${ETableNames.course}`));
 }
 
 export function down(knex: Knex) {
     return knex.schema
         .dropTable(ETableNames.course)
-        .then(() => console.log(`# Dropped table ${ETableNames.course}`));
+        .then(() => console.log(`# Dropped table: ${ETableNames.course}`));
 }

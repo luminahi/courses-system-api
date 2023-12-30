@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { testServer } from "../jest.setup.js";
 
-describe("course path", () => {
+describe("course path POST", () => {
     it("sends a proper body", async () => {
         const res = await testServer
             .post("/api/v1/courses")
