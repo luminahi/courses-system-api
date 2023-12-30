@@ -1,12 +1,11 @@
 import { RequestHandler } from "express";
-import { CoursesProvider } from "src/server/database/providers/courses/index.js";
-
-type idParam = { id: number };
+import { CoursesProvider } from "../../database/providers/courses/index.js";
+import { ParamsRequest } from "../../../server/shared/@types/sharedTypes.js";
 
 const getById: RequestHandler = async (req, res) => {
     try {
         const result = await CoursesProvider.getById(
-            <idParam>(<unknown>req.params)
+            (<unknown>req.params) as ParamsRequest
         );
         return res.status(200).json({ result });
     } catch (err) {

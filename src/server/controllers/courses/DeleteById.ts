@@ -1,12 +1,11 @@
 import { RequestHandler } from "express";
-import { CoursesProvider } from "src/server/database/providers/courses/index.js";
-
-type idParam = { id: number };
+import { CoursesProvider } from "../../database/providers/courses/index.js";
+import { ParamsRequest } from "../../shared/@types/sharedTypes.js";
 
 const deleteById: RequestHandler = async (req, res) => {
     try {
         const result = await CoursesProvider.deleteById(
-            <idParam>(<unknown>req.params)
+            (<unknown>req.params) as ParamsRequest
         );
         if (result !== 1) throw new Error("not found");
         return res.status(200).json({ default: "course deleted" });
