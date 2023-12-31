@@ -13,7 +13,8 @@
         "knex:seed": "npx tsx ./node_modules/knex/bin/cli.js --knexfile ./src/server/database/knex/Environment.ts seed:run",
         "watch": "tsc --watch",
         "build": "tsc",
-        "start": "node --env-file=.env build/index.js"
+        "start": "node --env-file=.env build/index.js",
+        "setup": "npm install && npm run build && npm run knex:migrate && npm test"
     },
     "keywords": [
         "api"
@@ -39,5 +40,8 @@
         "supertest": "^6.3.3",
         "tsx": "^4.7.0",
         "typescript": "^5.3.3"
+    },
+    "engines": {
+        "node": "21.1.0"
     }
 }
