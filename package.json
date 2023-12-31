@@ -4,7 +4,7 @@
     "description": "aplicação fullstack para cursos online",
     "main": "build/index.js",
     "scripts": {
-        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+        "test": "NODE_OPTIONS=--experimental-vm-modules jest",
         "dev": "tsx --watch --env-file=.env src/index.ts",
         "migrate:test": "npx tsx ./node_modules/knex/bin/cli.js --knexfile ./src/server/database/knex/Environment.ts migrate:make test",
         "knex:migrate": "npx tsx ./node_modules/knex/bin/cli.js --knexfile ./src/server/database/knex/Environment.ts migrate:latest",
