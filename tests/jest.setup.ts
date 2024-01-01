@@ -1,12 +1,13 @@
 import supertest from "supertest";
-import { server } from "../build/server/Server.js";
+import { server } from "../src/server/Server.js";
 import { afterAll, beforeAll } from "@jest/globals";
-import { Knex } from "../build/server/database/knex/index.js";
+import { Knex } from "../src/server/database/knex/index.js";
 
 const testServer = supertest(server);
 
-async function addData(data) {
-    for (let item of data) await testServer.post("/api/v1/courses").send(item);
+async function addData(data: { name: string }[]) {
+    for (const item of data)
+        await testServer.post("/api/v1/courses").send(item);
 }
 
 beforeAll(async () => {

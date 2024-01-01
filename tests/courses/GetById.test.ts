@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { testServer } from "../jest.setup.js";
+import { testServer } from "../jest.setup";
 
 describe("course path GET by id", () => {
     it("sends a proper param request", async () => {
