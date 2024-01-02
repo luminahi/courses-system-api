@@ -1,7 +1,7 @@
 {
     "name": "luminahi-courses",
     "version": "1.0.0",
-    "description": "aplicação fullstack para cursos online",
+    "description": "courses and teachers api",
     "main": "build/index.js",
     "scripts": {
         "test": "NODE_OPTIONS=--experimental-vm-modules jest",
