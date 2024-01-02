@@ -1,6 +1,6 @@
 import { Knex } from "../../knex/index.js";
 import { ICourse } from "../../models/Course.js";
-import { ETableNames } from "../../seeds/ETableNames.js";
+import { ETableNames } from "../../ETableNames.js";
 
 const getById = async (id: number): Promise<ICourse> => {
     try {

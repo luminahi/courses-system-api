@@ -1,5 +1,5 @@
 import { Knex } from "../../knex/index.js";
-import { ETableNames } from "../../seeds/ETableNames.js";
+import { ETableNames } from "../../ETableNames.js";
 import { QueryRequest } from "../../../shared/@types/sharedTypes.js";
 import { ICourse } from "../../models/Course.js";
 

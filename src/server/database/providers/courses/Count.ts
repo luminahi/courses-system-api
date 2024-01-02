@@ -1,5 +1,5 @@
 import { Knex } from "../../knex/index.js";
-import { ETableNames } from "../../seeds/ETableNames.js";
+import { ETableNames } from "../../ETableNames.js";
 
 const count = async (): Promise<number> => {
     try {

@@ -1,6 +1,6 @@
 import { Knex } from "../../knex/index.js";
 import { ICourse } from "../../models/index.js";
-import { ETableNames } from "../../seeds/ETableNames.js";
+import { ETableNames } from "../../ETableNames.js";
 
 const create = async (course: Omit<ICourse, "id">): Promise<number | Error> => {
     try {

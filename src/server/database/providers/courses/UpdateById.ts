@@ -1,5 +1,5 @@
 import { Knex } from "../../knex/index.js";
-import { ETableNames } from "../../seeds/ETableNames.js";
+import { ETableNames } from "../../ETableNames.js";
 import { ICourse } from "../../models/Course.js";
 
 const updateById = async (
