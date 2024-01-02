@@ -9,8 +9,7 @@
         "sourceMap": true,
         "baseUrl": ".",
         "outDir": "build",
-        "rootDir": ".",
         "moduleResolution": "Node"
     },
-    "exclude": ["./node_modules", "./tests", "./jest.config.ts"]
+    "include": ["src/**/*.ts"]
 }

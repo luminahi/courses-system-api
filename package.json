@@ -6,7 +6,6 @@
     "scripts": {
         "test": "NODE_OPTIONS=--experimental-vm-modules jest",
         "dev": "tsx --watch --env-file=.env src/index.ts",
-        "migrate:test": "npx tsx ./node_modules/knex/bin/cli.js --knexfile ./src/server/database/knex/Environment.ts migrate:make test",
         "knex:migrate": "npx tsx ./node_modules/knex/bin/cli.js --knexfile ./src/server/database/knex/Environment.ts migrate:latest",
         "knex:rollback": "npx tsx ./node_modules/knex/bin/cli.js --knexfile ./src/server/database/knex/Environment.ts migrate:rollback",
         "knex:rollback-all": "npx tsx ./node_modules/knex/bin/cli.js --knexfile ./src/server/database/knex/Environment.ts migrate:rollback --all",
