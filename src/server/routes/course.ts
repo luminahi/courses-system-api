@@ -2,7 +2,7 @@ import { Router } from "express";
 import { CoursesController } from "../controllers/courses/index.js";
 import { bodyValidation } from "../shared/middlewares/validations/courses/bodyValidation.js";
 import { paramsValidation } from "../shared/middlewares/validations/courses/paramsValidation.js";
-import { queryValidation } from "../shared/middlewares/validations/courses/queryValidation.js";
+import { queryValidation } from "../shared/middlewares/validations/queryValidation.js";
 
 const router = Router();
 

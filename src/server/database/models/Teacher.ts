@@ -1,6 +1,9 @@
 interface ITeacher {
     id: number;
-    name: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    courseId: number;
 }
 
 export { ITeacher };
