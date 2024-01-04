@@ -11,12 +11,12 @@ import {
 const getAll = async (query: QueryRequest): Promise<ITeacher[]> => {
     try {
         const result = await Knex(ETableNames.teacher)
-            .select("id", "firstName", "lastName", "email")
+            .select("*")
             .limit(query.size)
             .offset((query.page - 1) * query.size);
 
         if (!Array.isArray(result))
-            throw new DataError("error gettings courses");
+            throw new DataError("error getting courses");
 
         return result;
     } catch (err: unknown) {

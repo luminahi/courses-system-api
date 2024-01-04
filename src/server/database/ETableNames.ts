@@ -1,6 +1,7 @@
 enum ETableNames {
-    course = "courses",
-    teacher = "teachers",
+    course = "course",
+    teacher = "teacher",
+    user = "user",
 }
 
 export { ETableNames };

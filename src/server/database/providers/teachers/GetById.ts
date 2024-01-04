@@ -9,8 +9,8 @@ import {
 
 const getById = async (id: number): Promise<ITeacher> => {
     try {
-        const result: ITeacher = await Knex(ETableNames.teacher)
-            .select("id", "firstName", "lastName", "email", "courseId")
+        const result = await Knex(ETableNames.teacher)
+            .select("*")
             .where({ id })
             .first();
 

@@ -10,11 +10,9 @@ import {
 
 const updateById = async (teacher: ITeacher): Promise<void> => {
     try {
-        const { id, courseId, email, firstName, lastName } = teacher;
-
         const result = await Knex(ETableNames.teacher)
-            .where({ id })
-            .update({ courseId, email, lastName, firstName });
+            .where({ id: teacher.id })
+            .update({ ...teacher });
 
         if (!result) throw new DataError("error updating course");
         if (result === 0) throw new NotFoundError("course not found");
