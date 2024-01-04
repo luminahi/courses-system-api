@@ -6,7 +6,7 @@ import {
     DataError,
     InternalError,
     ServerError,
-} from "src/server/shared/errors/index.js";
+} from "../../../shared/errors/index.js";
 
 const updateById = async (teacher: ITeacher): Promise<void> => {
     try {

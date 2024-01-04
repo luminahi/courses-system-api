@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { TeacherProvider } from "../../database/providers/teachers/index.js";
-import { errorHandler } from "src/server/shared/errors/index.js";
+import { errorHandler } from "../../shared/errors/index.js";
 
 const getById: RequestHandler = async (req, res) => {
     try {
