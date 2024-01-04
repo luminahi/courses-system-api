@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { testServer } from "../jest.setup";
+// import { ITeacher } from "../../src/server/database/models/index.js";
 
 describe("course path POST", () => {
     it("sends a proper body", async () => {
