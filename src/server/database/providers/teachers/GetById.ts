@@ -1,22 +1,20 @@
 import { Knex } from "../../knex/index.js";
 import { ETableNames } from "../../ETableNames.js";
-import { QueryRequest } from "../../../shared/types/sharedTypes.js";
 import { ITeacher } from "../../models/Teacher.js";
 import {
     InternalError,
-    DataError,
+    NotFoundError,
     ServerError,
 } from "../../../shared/errors/index.js";
 
-const getAll = async (query: QueryRequest): Promise<ITeacher[]> => {
+const getById = async (id: number): Promise<ITeacher> => {
     try {
-        const result = await Knex(ETableNames.teacher)
+        const result: ITeacher = await Knex(ETableNames.teacher)
             .select("id", "firstName", "lastName", "email")
-            .limit(query.size)
-            .offset((query.page - 1) * query.size);
+            .where({ id })
+            .first();
 
-        if (!Array.isArray(result))
-            throw new DataError("error gettings courses");
+        if (!result) throw new NotFoundError("teacher not found");
 
         return result;
     } catch (err: unknown) {
@@ -25,4 +23,4 @@ const getAll = async (query: QueryRequest): Promise<ITeacher[]> => {
     }
 };
 
-export { getAll };
+export { getById };

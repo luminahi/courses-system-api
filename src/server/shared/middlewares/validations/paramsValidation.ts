@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { RequestHandler } from "express";
-import { ParamsRequest } from "../../../types/sharedTypes.js";
+import { ParamsRequest } from "../../types/sharedTypes.js";
 
 const paramsSchema: yup.Schema<ParamsRequest> = yup.object().shape({
     id: yup.number().integer().moreThan(0).required(),
