@@ -17,6 +17,7 @@ const count = async (): Promise<number> => {
         return total;
     } catch (err: unknown) {
         if (err instanceof ServerError) throw err;
+        if (err instanceof Error) throw new DataError(err.message);
         throw new InternalError("critical error");
     }
 };

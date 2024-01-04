@@ -13,6 +13,7 @@ const deleteById = async (id: number): Promise<void> => {
         if (result === 0) throw new NotFoundError("teacher not found");
     } catch (err: unknown) {
         if (err instanceof ServerError) throw err;
+        if (err instanceof Error) throw new DataError(err.message);
         throw new InternalError("critical error");
     }
 };

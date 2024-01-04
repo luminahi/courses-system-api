@@ -2,6 +2,7 @@ import { Knex } from "../../knex/index.js";
 import { ETableNames } from "../../ETableNames.js";
 import { ITeacher } from "../../models/Teacher.js";
 import {
+    DataError,
     InternalError,
     NotFoundError,
     ServerError,
@@ -19,6 +20,7 @@ const getById = async (id: number): Promise<ITeacher> => {
         return result;
     } catch (err: unknown) {
         if (err instanceof ServerError) throw err;
+        if (err instanceof Error) throw new DataError(err.message);
         throw new InternalError("critical error");
     }
 };
