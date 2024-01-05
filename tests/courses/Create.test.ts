@@ -6,7 +6,7 @@ describe("course path POST", () => {
     it("sends a proper body", async () => {
         const res = await testServer
             .post("/api/v1/courses")
-            .send({ name: "conteudo" });
+            .send({ name: "content" });
 
         expect(res.status).toBe(201);
     });

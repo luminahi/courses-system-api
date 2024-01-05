@@ -9,7 +9,7 @@ describe("course path DELETE by id", () => {
         expect(res1.body).toEqual({ default: "course deleted" });
 
         expect(res2.status).toBe(404);
-        expect(res2.body).toEqual({ error: "error at getting course" });
+        expect(res2.body).toEqual({ error: "course not found" });
     });
 
     it("sends a param not allowed", async () => {

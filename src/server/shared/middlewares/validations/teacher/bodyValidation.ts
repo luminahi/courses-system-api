@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { RequestHandler } from "express";
 import { ITeacher } from "../../../../database/models/index.js";
-import { DataError } from "src/server/shared/errors/DataError.js";
+import { DataError } from "../../../errors/index.js";
 
 const bodySchema: yup.Schema<Partial<Omit<ITeacher, "id">>> = yup
     .object()
