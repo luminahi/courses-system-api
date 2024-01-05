@@ -1,12 +1,12 @@
 import { RequestHandler } from "express";
-import { TeacherProvider } from "../../database/providers/teachers/index.js";
+import { TeachersProvider } from "../../database/providers/teachers/index.js";
 import { QueryRequest } from "../../shared/types/sharedTypes.js";
 import { errorHandler } from "../../shared/errors/index.js";
 
 const getAll: RequestHandler = async (req, res) => {
     try {
-        const total = await TeacherProvider.count();
-        const result = await TeacherProvider.getAll(
+        const total = await TeachersProvider.count();
+        const result = await TeachersProvider.getAll(
             (<unknown>req.query) as QueryRequest
         );
 

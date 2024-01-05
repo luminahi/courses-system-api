@@ -5,7 +5,7 @@ import { deleteById } from "./DeleteById.js";
 import { getById } from "./GetById.js";
 import { updateById } from "./UpdateById.js";
 
-export const TeacherProvider = {
+export const TeachersProvider = {
     create,
     getAll,
     count,
