@@ -1,16 +1,13 @@
 import { RequestHandler } from "express";
 import { CoursesProvider } from "../../database/providers/courses/index.js";
+import { errorHandler } from "../../shared/errors/index.js";
 
 const create: RequestHandler = async (req, res) => {
     try {
-        const { name } = req.body;
-        if (!name) throw new Error("bad body");
         const result = await CoursesProvider.create(req.body);
         return res.status(201).send(`id ${result} created`);
     } catch (err: unknown) {
-        if (err instanceof Error) {
-            return res.status(400).json({ error: err.message });
-        }
+        errorHandler(err, res);
     }
 };
 
