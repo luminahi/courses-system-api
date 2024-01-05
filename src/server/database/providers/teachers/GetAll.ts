@@ -16,7 +16,7 @@ const getAll = async (query: QueryRequest): Promise<ITeacher[]> => {
             .offset((query.page - 1) * query.size);
 
         if (!Array.isArray(result))
-            throw new DataError("error getting courses");
+            throw new DataError("error getting teachers");
 
         return result;
     } catch (err: unknown) {

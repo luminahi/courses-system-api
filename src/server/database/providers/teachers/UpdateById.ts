@@ -14,8 +14,8 @@ const updateById = async (teacher: ITeacher): Promise<void> => {
             .where({ id: teacher.id })
             .update({ ...teacher });
 
-        if (!result) throw new DataError("error updating course");
-        if (result === 0) throw new NotFoundError("course not found");
+        if (!result) throw new DataError("error updating teacher");
+        if (result === 0) throw new NotFoundError("teacher not found");
     } catch (err: unknown) {
         if (err instanceof ServerError) throw err;
         if (err instanceof Error) throw new DataError(err.message);

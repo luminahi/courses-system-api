@@ -9,14 +9,14 @@ import {
 
 const create = async (teacher: Omit<ITeacher, "id">): Promise<number> => {
     try {
-        const result = await Knex(ETableNames.teacher)
+        const [result] = await Knex(ETableNames.teacher)
             .insert(teacher)
             .returning("id");
 
-        if (typeof result[0] === "object") {
-            return result[0].id;
+        if (typeof result === "object") {
+            return result.id;
         } else if (typeof result === "number") {
-            return result[0];
+            return result;
         }
         throw new DataError("error registering new teacher");
     } catch (err: unknown) {

@@ -1,8 +1,11 @@
 import { ETableNames } from "../../ETableNames";
 import { Knex } from "../../knex/index.js";
-import { NotFoundError } from "../../../shared/errors/NotFoundError.js";
-import { InternalError } from "../../../shared/errors/InternalError";
-import { DataError, ServerError } from "../../../shared/errors/index.js";
+import {
+    DataError,
+    ServerError,
+    InternalError,
+    NotFoundError,
+} from "../../../shared/errors/index.js";
 
 const deleteById = async (id: number): Promise<void> => {
     try {
