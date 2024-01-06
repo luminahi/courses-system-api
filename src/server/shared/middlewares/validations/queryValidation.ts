@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { RequestHandler } from "express";
-import { QueryRequest } from "../../types/sharedTypes.js";
+import { QueryRequest } from "index.js";
 
 const querySchema: yup.Schema<QueryRequest> = yup.object().shape({
     size: yup.number().integer().moreThan(0).default(5),
