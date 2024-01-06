@@ -1,10 +1,11 @@
-import { RequestHandler } from "express";
+import { Request, Response } from "express";
 import { CoursesProvider } from "../../database/providers/courses/index.js";
-import { errorHandler } from "../../shared/errors/index.js";
+import { errorHandler, DataError } from "../../shared/errors/index.js";
 
-const deleteById: RequestHandler = async (req, res) => {
+const deleteById = async (req: Request, res: Response) => {
     try {
-        const id = Number(req.params.id);
+        const { id } = req.params;
+        if (!id) throw new DataError("invalid id");
         await CoursesProvider.deleteById(Number(id));
         return res.status(200).json({ default: "course deleted" });
     } catch (err: unknown) {

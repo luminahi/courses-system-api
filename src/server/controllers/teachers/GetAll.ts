@@ -1,14 +1,14 @@
-import { RequestHandler } from "express";
+import { Request, Response } from "express";
 import { TeachersProvider } from "../../database/providers/teachers/index.js";
-import { QueryRequest } from "../../shared/types/sharedTypes.js";
 import { errorHandler } from "../../shared/errors/index.js";
 
-const getAll: RequestHandler = async (req, res) => {
+const getAll = async (req: Request, res: Response) => {
     try {
+        let { page, size } = req.query;
+        page = page ?? 1;
+        size = size ?? 5;
         const total = await TeachersProvider.count();
-        const result = await TeachersProvider.getAll(
-            (<unknown>req.query) as QueryRequest
-        );
+        const result = await TeachersProvider.getAll({ page, size });
 
         const queryResult = {
             total,

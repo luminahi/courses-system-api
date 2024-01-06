@@ -1,6 +1,6 @@
 import { Knex } from "../../knex/index.js";
 import { ETableNames } from "../../ETableNames.js";
-import { QueryRequest } from "../../../shared/types/sharedTypes.js";
+import { QueryRequest } from "index.js";
 import { ITeacher } from "../../models/Teacher.js";
 import {
     InternalError,
@@ -8,7 +8,7 @@ import {
     ServerError,
 } from "../../../shared/errors/index.js";
 
-const getAll = async (query: QueryRequest): Promise<ITeacher[]> => {
+const getAll = async (query: Required<QueryRequest>): Promise<ITeacher[]> => {
     try {
         const result = await Knex(ETableNames.teacher)
             .select("*")

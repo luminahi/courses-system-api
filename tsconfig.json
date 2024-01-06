@@ -9,7 +9,7 @@
         "sourceMap": true,
         "baseUrl": ".",
         "outDir": "build",
-        "moduleResolution": "Node"
+        "moduleResolution": "Node10"
     },
-    "include": ["src/**/*.ts"]
+    "include": ["src/**/*.ts", "./index.d.ts"]
 }

@@ -1,10 +1,11 @@
-import { RequestHandler } from "express";
+import { Request, Response } from "express";
 import { CoursesProvider } from "../../database/providers/courses/index.js";
-import { errorHandler } from "../../shared/errors/index.js";
+import { errorHandler, DataError } from "../../shared/errors/index.js";
 
-const getById: RequestHandler = async (req, res) => {
+const getById = async (req: Request, res: Response) => {
     try {
-        const id = Number(req.params.id);
+        const { id } = req.params;
+        if (!id) throw new DataError("invalid id");
         const result = await CoursesProvider.getById(id);
         return res.status(200).json({ result });
     } catch (err: unknown) {
