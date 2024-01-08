@@ -1,9 +1,15 @@
 import jwt from "jsonwebtoken";
-import { DataError, InternalError, ServerError } from "../errors/index.js";
+import {
+    AuthError,
+    DataError,
+    InternalError,
+    ServerError,
+} from "../errors/index.js";
 
 interface ISignUser {
-    email: string;
-    iat: number;
+    email?: string;
+    iat?: number;
+    exp?: number;
 }
 
 const generateAccessToken = (data: ISignUser): string => {
@@ -13,20 +19,31 @@ const generateAccessToken = (data: ISignUser): string => {
 
         const token = jwt.sign(data, process.env.JWT_SECRET, {
             algorithm: "HS256",
+            expiresIn: 3_600_000,
         });
 
         return token;
     } catch (err: unknown) {
-        if (err instanceof ServerError) throw new DataError(err.message);
+        if (err instanceof AuthError) throw err;
         if (err instanceof Error) throw new ServerError(err.message);
         throw new InternalError("internal error");
     }
 };
 
-const verifyAccessToken = (token: string) => {
-    if (!process.env.JWT_SECRET) return;
-    const c = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(c);
+const verifyAccessToken = (token: string): ISignUser => {
+    try {
+        if (!process.env.JWT_SECRET)
+            throw new DataError("jwt secret undefined");
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (typeof decoded === "string") throw new AuthError("invalid token");
+
+        return decoded;
+    } catch (err: unknown) {
+        if (err instanceof AuthError) throw err;
+        if (err instanceof Error) throw new ServerError(err.message);
+        throw new InternalError("internal error");
+    }
 };
 
 export { generateAccessToken, verifyAccessToken };

@@ -11,7 +11,6 @@ import { hashPassword } from "../../../shared/services/PasswordCrypto.js";
 const create = async (user: Omit<IUser, "id">): Promise<number> => {
     try {
         const hashedPassword = await hashPassword(user.password);
-
         const [result] = await Knex(ETableNames.user)
             .insert({
                 email: user.email,

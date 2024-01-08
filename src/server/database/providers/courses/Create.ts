@@ -18,6 +18,7 @@ const create = async (course: Omit<ICourse, "id">): Promise<number> => {
         } else if (typeof result === "number") {
             return result;
         }
+
         throw new DataError("error registering new course");
     } catch (err: unknown) {
         if (err instanceof ServerError) throw err;

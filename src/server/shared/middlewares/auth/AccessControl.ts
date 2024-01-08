@@ -1,8 +1,12 @@
 import { RequestHandler } from "express";
-import {} from "../../services/JWTService.js";
+import { verifyAccessToken } from "../../services/JWTService.js";
+import { ServerError } from "../../errors/ServerError.js";
+import { AuthError } from "../../errors/AuthError.js";
+import { errorHandler } from "../../errors/ErrorHandler.js";
 
 const accessControl: RequestHandler = (req, res, next) => {
     const { authorization } = req.headers;
+
     if (!authorization) {
         return res.status(401).json({ error: "not authorized" });
     }
@@ -12,11 +16,14 @@ const accessControl: RequestHandler = (req, res, next) => {
         return res.status(401).json({ error: "not authorized" });
     }
 
-    if (token !== "hello.there.test") {
-        return res.status(401).json({ error: "not authorized" });
+    try {
+        const payload = verifyAccessToken(token);
+        if (!payload.exp) throw new AuthError("invalid token");
+        if (Date.now() > payload.exp) throw new ServerError("token expired");
+        return next();
+    } catch (err: unknown) {
+        errorHandler(err, res);
     }
-
-    next();
 };
 
 export { accessControl };
