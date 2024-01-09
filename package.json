@@ -13,7 +13,7 @@
         "watch": "tsc --watch",
         "build": "tsc",
         "start": "node --env-file=.env build/index.js",
-        "setup": "npm install && npm test && npm run build && npm run knex:migrate"
+        "setup": "npm ci && node init.js && npm test && npm run build && npm run knex:migrate && npm run knex:seed"
     },
     "keywords": [
         "api"
