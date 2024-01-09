@@ -1,4 +1,4 @@
-import { ETableNames } from "../../ETableNames";
+import { ETableNames } from "../../ETableNames.js";
 import { Knex } from "../../knex/index.js";
 import {
     DataError,
