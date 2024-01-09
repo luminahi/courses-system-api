@@ -1,14 +1,39 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, beforeAll } from "@jest/globals";
 import { testServer } from "../jest.setup";
 
 describe("teacher path GET by id", () => {
+    let accessToken = "";
+    beforeAll(async () => {
+        const res = await testServer
+            .post("/signin")
+            .send({ email: "alexlima@mail.com", password: "11111111" });
+
+        accessToken = res.body.accessToken;
+    });
+
     it("sends a proper param request", async () => {
-        const res = await testServer.get("/api/v1/teachers/1");
+        const res = await testServer
+            .get("/api/v1/teachers/1")
+            .auth(accessToken, { type: "bearer" });
+
         expect(res.status).toBe(200);
     });
 
     it("sends a param not allowed", async () => {
-        const res = await testServer.get("/api/v1/teachers/-1");
+        const res = await testServer
+            .get("/api/v1/teachers/-1")
+            .auth(accessToken, { type: "bearer" });
+
         expect(res.status).toBe(400);
+    });
+
+    it("sends a proper param request", async () => {
+        const res = await testServer.get("/api/v1/teachers/1");
+        expect(res.status).toBe(401);
+    });
+
+    it("sends a param not allowed", async () => {
+        const res = await testServer.get("/api/v1/teachers/-1");
+        expect(res.status).toBe(401);
     });
 });
