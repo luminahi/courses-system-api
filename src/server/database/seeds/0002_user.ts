@@ -11,5 +11,16 @@ export async function seed(knex: Knex): Promise<void> {
 }
 
 const userData: Omit<IUser, "id">[] = [
-    { name: "alex", email: "alex@mail.com", password: "00000000" },
+    {
+        name: "sora lumi",
+        email: "soralumi@mail.com",
+        password:
+            "$2a$10$0ODbj/2Ark08j3.z2byHrOLORdDKEuZw25qnqH18sK6D8tmdmGjOK",
+    },
+    {
+        name: "alex lima",
+        email: "alexlima@mail.com",
+        password:
+            "$2a$10$bTsngPfYGEA2Dz.4b7tenOn8K9kOU87e4ImD4VcWQlWL6xfVOrX96",
+    },
 ];
