@@ -6,7 +6,8 @@ const deleteById = async (req: Request, res: Response) => {
     if (!id) return res.status(200).json({ error: "invalid id" });
 
     const result = await TeachersProvider.deleteById(id);
-    if (result.isPresent() && result.get() === 1) return res.status(204).send();
+    if (result.isPresent() && result.get() === 1)
+        return res.status(204).json({});
 
     return res.status(404).json({ error: "teacher not found" });
 };

@@ -6,8 +6,7 @@ const getById = async (req: Request, res: Response) => {
     if (!id) return res.status(200).json({ error: "invalid id" });
 
     const result = await TeachersProvider.getById(id);
-    if (result.isPresent())
-        return res.status(200).json({ result: result.get() });
+    if (result.isPresent()) return res.status(200).json(result.get());
 
     return res.status(404).json({ error: "teacher not found" });
 };
