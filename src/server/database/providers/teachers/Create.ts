@@ -1,19 +1,20 @@
 import { Knex } from "../../knex/index.js";
 import { ITeacher } from "../../models/Teacher.js";
 import { ETableNames } from "../../ETableNames.js";
-import { Optional } from "../../../shared/util/Optional.js";
+import { Result } from "../../../shared/util/Result.js";
 
 const create = async (
     teacher: Omit<ITeacher, "id">
-): Promise<Optional<ITeacher | null>> => {
+): Promise<Result<ITeacher | null>> => {
     try {
         const [result] = await Knex(ETableNames.teacher)
             .insert(teacher)
             .returning("id");
 
-        return Optional.ofNullable(result);
+        return Result.ofNullable(result);
     } catch (err: unknown) {
-        return Optional.empty();
+        if (err instanceof Error) return Result.asError(err.message, 500);
+        return Result.asError("internal error", 500);
     }
 };
 

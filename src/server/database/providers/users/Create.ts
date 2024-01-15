@@ -1,10 +1,12 @@
 import { Knex } from "../../knex/index.js";
 import { IUser } from "../../models/index.js";
 import { ETableNames } from "../../ETableNames.js";
-import { ServerError } from "../../../shared/errors/index.js";
 import { hashPassword } from "../../../shared/services/PasswordCrypto.js";
+import { Result } from "../../../shared/util/Result.js";
 
-const create = async (user: Omit<IUser, "id">): Promise<number> => {
+const create = async (
+    user: Omit<IUser, "id">
+): Promise<Result<Pick<IUser, "id"> | null>> => {
     try {
         const hashedPassword = await hashPassword(user.password);
         const [result] = await Knex(ETableNames.user)
@@ -15,17 +17,10 @@ const create = async (user: Omit<IUser, "id">): Promise<number> => {
             })
             .returning("id");
 
-        if (typeof result === "object") {
-            return result.id;
-        } else if (typeof result === "number") {
-            return result;
-        }
-
-        throw new ServerError("error registering new user");
+        return Result.ofNullable(result);
     } catch (err: unknown) {
-        if (err instanceof ServerError) throw err;
-        if (err instanceof Error) throw new ServerError(err.message);
-        throw new ServerError("critical error");
+        if (err instanceof Error) return Result.asError(err.message, 500);
+        return Result.asError("internal error", 500);
     }
 };
 

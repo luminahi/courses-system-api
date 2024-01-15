@@ -2,20 +2,21 @@ import { Knex } from "../../knex/index.js";
 import { ETableNames } from "../../ETableNames.js";
 import { QueryRequest } from "index.js";
 import { ITeacher } from "../../models/Teacher.js";
-import { Optional } from "../../../shared/util/Optional.js";
+import { Result } from "../../../shared/util/Result.js";
 
 const getAll = async (
     query: Required<QueryRequest>
-): Promise<Optional<ITeacher[] | null>> => {
+): Promise<Result<ITeacher[] | null>> => {
     try {
         const result = await Knex(ETableNames.teacher)
             .select("*")
             .limit(query.size)
             .offset((query.page - 1) * query.size);
 
-        return Optional.ofNullable(result);
+        return Result.ofNullable(result);
     } catch (err: unknown) {
-        return Optional.empty();
+        if (err instanceof Error) return Result.asError(err.message, 500);
+        return Result.asError("internal error", 500);
     }
 };
 

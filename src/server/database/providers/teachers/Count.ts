@@ -1,15 +1,16 @@
 import { Knex } from "../../knex/index.js";
 import { ETableNames } from "../../ETableNames.js";
-import { Optional } from "../../../shared/util/Optional.js";
+import { Result } from "../../../shared/util/Result.js";
 
-const count = async (): Promise<Optional<number | null>> => {
+const count = async (): Promise<Result<number | null>> => {
     try {
         const [result] = await Knex(ETableNames.teacher).count();
         const total = Number(result["count(*)"]);
 
-        return Optional.ofNullable(total);
+        return Result.ofNullable(total);
     } catch (err: unknown) {
-        return Optional.empty();
+        if (err instanceof Error) return Result.asError(err.message, 500);
+        return Result.asError("internal error", 500);
     }
 };
 
