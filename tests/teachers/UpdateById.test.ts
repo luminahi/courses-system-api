@@ -25,8 +25,8 @@ describe("teacher path PUT by id", () => {
             .send(teacher)
             .auth(accessToken, { type: "bearer" });
 
-        expect(res1.status).toBe(200);
-        expect(res1.body).toEqual({ default: "teacher updated" });
+        expect(res1.status).toBe(204);
+        expect(res1.body).toEqual({});
 
         const res2 = await testServer
             .get("/api/v1/teachers/1")

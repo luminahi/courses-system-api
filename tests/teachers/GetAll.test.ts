@@ -16,10 +16,10 @@ describe("teacher path GET all", () => {
             .get("/api/v1/teachers")
             .auth(accessToken, { type: "bearer" });
 
-        const { queryResult } = res.body;
+        const { page, size } = res.body;
         expect(res.status).toBe(200);
-        expect(queryResult.page).toBe(1);
-        expect(queryResult.size).toBe(5);
+        expect(page).toBe(1);
+        expect(size).toBe(5);
     });
 
     it("sends a request with a specific query", async () => {
@@ -27,10 +27,10 @@ describe("teacher path GET all", () => {
             .get("/api/v1/teachers/?size=3&page=3")
             .auth(accessToken, { type: "bearer" });
 
-        const { queryResult } = res.body;
+        const { page, size } = res.body;
         expect(res.status).toBe(200);
-        expect(queryResult.page).toBe(3);
-        expect(queryResult.size).toBe(3);
+        expect(page).toBe(3);
+        expect(size).toBe(3);
     });
 
     it("sends a request with invalid query values", async () => {
