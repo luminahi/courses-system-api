@@ -27,12 +27,12 @@ describe("teacher path GET by id", () => {
         expect(res.status).toBe(400);
     });
 
-    it("sends a proper param request", async () => {
+    it("sends a proper param request without auth", async () => {
         const res = await testServer.get("/api/v1/teachers/1");
         expect(res.status).toBe(401);
     });
 
-    it("sends a param not allowed", async () => {
+    it("sends a param not allowed without auth", async () => {
         const res = await testServer.get("/api/v1/teachers/-1");
         expect(res.status).toBe(401);
     });

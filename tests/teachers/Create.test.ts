@@ -37,7 +37,7 @@ describe("teacher path POST", () => {
         expect(res.status).toBe(400);
     });
 
-    it("sends a proper body", async () => {
+    it("sends a proper body without auth", async () => {
         const teacher: Omit<ITeacher, "id"> = {
             email: "test@gmail.com",
             lastName: "firstTest",
@@ -49,7 +49,7 @@ describe("teacher path POST", () => {
         expect(res.status).toBe(401);
     });
 
-    it("sends a empty body", async () => {
+    it("sends a empty body without auth", async () => {
         const res = await testServer.post("/api/v1/teachers").send({});
         expect(res.status).toBe(401);
     });

@@ -24,7 +24,7 @@ describe("teacher path DELETE by id", () => {
         expect(res1.body).toEqual({});
 
         expect(res2.status).toBe(404);
-        expect(res2.body).toEqual({ error: "teacher not found" });
+        expect(res2.body).toEqual({ error: "not found" });
     });
 
     it("sends a param not allowed", async () => {

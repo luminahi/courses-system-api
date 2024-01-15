@@ -51,7 +51,7 @@ describe("teacher path GET all", () => {
         expect(res.status).toBe(401);
     });
 
-    it("sends a request with invalid query values", async () => {
+    it("sends a request with invalid query values without auth", async () => {
         const res = await testServer.get("/api/v1/teachers/?size=@&page=!");
         expect(res.status).toBe(401);
     });
