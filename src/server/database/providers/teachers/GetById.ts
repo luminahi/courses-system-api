@@ -1,27 +1,18 @@
 import { Knex } from "../../knex/index.js";
 import { ETableNames } from "../../ETableNames.js";
 import { ITeacher } from "../../models/Teacher.js";
-import {
-    DataError,
-    InternalError,
-    NotFoundError,
-    ServerError,
-} from "../../../shared/errors/index.js";
+import { Optional } from "../../../shared/util/Optional.js";
 
-const getById = async (id: number): Promise<ITeacher> => {
+const getById = async (id: number): Promise<Optional<ITeacher | null>> => {
     try {
         const result = await Knex(ETableNames.teacher)
             .select("*")
             .where({ id })
             .first();
 
-        if (!result) throw new NotFoundError("teacher not found");
-
-        return result;
+        return Optional.ofNullable(result);
     } catch (err: unknown) {
-        if (err instanceof ServerError) throw err;
-        if (err instanceof Error) throw new DataError(err.message);
-        throw new InternalError("critical error");
+        return Optional.empty();
     }
 };
 

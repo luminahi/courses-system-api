@@ -1,23 +1,14 @@
 import { ETableNames } from "../../ETableNames.js";
 import { Knex } from "../../knex/index.js";
-import {
-    DataError,
-    ServerError,
-    InternalError,
-    NotFoundError,
-} from "../../../shared/errors/index.js";
+import { Optional } from "../../../shared/util/Optional.js";
 
-const deleteById = async (id: number): Promise<void> => {
+const deleteById = async (id: number): Promise<Optional<number | null>> => {
     try {
         const result = await Knex(ETableNames.teacher).delete().where({ id });
 
-        if (typeof result !== "number")
-            throw new DataError("error deleting teacher");
-        if (result === 0) throw new NotFoundError("teacher not found");
+        return Optional.ofNullable(result);
     } catch (err: unknown) {
-        if (err instanceof ServerError) throw err;
-        if (err instanceof Error) throw new DataError(err.message);
-        throw new InternalError("critical error");
+        return Optional.empty();
     }
 };
 

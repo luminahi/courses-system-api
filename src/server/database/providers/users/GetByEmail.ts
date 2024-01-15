@@ -1,12 +1,7 @@
 import { Knex } from "../../knex/index.js";
 import { ETableNames } from "../../ETableNames.js";
 import { IUser } from "../../models/index.js";
-import {
-    DataError,
-    InternalError,
-    AuthError,
-    ServerError,
-} from "../../../shared/errors/index.js";
+import { AuthError, ServerError } from "../../../shared/errors/index.js";
 
 const getByEmail = async (email: string): Promise<IUser> => {
     try {
@@ -20,8 +15,8 @@ const getByEmail = async (email: string): Promise<IUser> => {
         return result;
     } catch (err: unknown) {
         if (err instanceof ServerError) throw err;
-        if (err instanceof Error) throw new DataError(err.message);
-        throw new InternalError("critical error");
+        if (err instanceof Error) throw new ServerError(err.message);
+        throw new ServerError("critical error");
     }
 };
 

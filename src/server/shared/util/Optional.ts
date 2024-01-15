@@ -2,8 +2,6 @@
  * Simple implementation of Java's utility class Optional
  */
 class Optional<T> {
-    // instance methods
-
     public readonly value: T;
 
     private constructor(value: T) {

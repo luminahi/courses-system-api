@@ -15,10 +15,10 @@ export async function up(knex: Knex) {
             .onDelete("RESTRICT");
         table.comment("table for registered teachers");
     });
-    return console.log(`# Created table: ${ETableNames.teacher}`);
+    // return console.log(`# Created table: ${ETableNames.teacher}`);
 }
 
 export async function down(knex: Knex) {
     await knex.schema.dropTable(ETableNames.teacher);
-    return console.log(`# Dropped table: ${ETableNames.teacher}`);
+    // return console.log(`# Dropped table: ${ETableNames.teacher}`);
 }

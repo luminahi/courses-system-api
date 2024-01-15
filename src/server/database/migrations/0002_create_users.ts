@@ -9,10 +9,10 @@ export async function up(knex: Knex) {
         table.string("password", 64).notNullable().checkLength(">=", 8);
         table.comment("table for registered users");
     });
-    return console.log(`# Created table: ${ETableNames.user}`);
+    // return console.log(`# Created table: ${ETableNames.user}`);
 }
 
 export async function down(knex: Knex) {
     await knex.schema.dropTable(ETableNames.user);
-    return console.log(`# Dropped table: ${ETableNames.user}`);
+    // return console.log(`# Dropped table: ${ETableNames.user}`);
 }

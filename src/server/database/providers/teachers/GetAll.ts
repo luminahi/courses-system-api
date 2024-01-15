@@ -2,27 +2,20 @@ import { Knex } from "../../knex/index.js";
 import { ETableNames } from "../../ETableNames.js";
 import { QueryRequest } from "index.js";
 import { ITeacher } from "../../models/Teacher.js";
-import {
-    InternalError,
-    DataError,
-    ServerError,
-} from "../../../shared/errors/index.js";
+import { Optional } from "../../../shared/util/Optional.js";
 
-const getAll = async (query: Required<QueryRequest>): Promise<ITeacher[]> => {
+const getAll = async (
+    query: Required<QueryRequest>
+): Promise<Optional<ITeacher[] | null>> => {
     try {
         const result = await Knex(ETableNames.teacher)
             .select("*")
             .limit(query.size)
             .offset((query.page - 1) * query.size);
 
-        if (!Array.isArray(result))
-            throw new DataError("error getting teachers");
-
-        return result;
+        return Optional.ofNullable(result);
     } catch (err: unknown) {
-        if (err instanceof ServerError) throw err;
-        if (err instanceof Error) throw new DataError(err.message);
-        throw new InternalError("critical error");
+        return Optional.empty();
     }
 };
 

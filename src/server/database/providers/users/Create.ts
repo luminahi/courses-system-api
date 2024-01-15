@@ -1,11 +1,7 @@
 import { Knex } from "../../knex/index.js";
 import { IUser } from "../../models/index.js";
 import { ETableNames } from "../../ETableNames.js";
-import {
-    DataError,
-    InternalError,
-    ServerError,
-} from "../../../shared/errors/index.js";
+import { ServerError } from "../../../shared/errors/index.js";
 import { hashPassword } from "../../../shared/services/PasswordCrypto.js";
 
 const create = async (user: Omit<IUser, "id">): Promise<number> => {
@@ -25,11 +21,11 @@ const create = async (user: Omit<IUser, "id">): Promise<number> => {
             return result;
         }
 
-        throw new DataError("error registering new user");
+        throw new ServerError("error registering new user");
     } catch (err: unknown) {
         if (err instanceof ServerError) throw err;
-        if (err instanceof Error) throw new DataError(err.message);
-        throw new InternalError("critical error");
+        if (err instanceof Error) throw new ServerError(err.message);
+        throw new ServerError("critical error");
     }
 };
 
