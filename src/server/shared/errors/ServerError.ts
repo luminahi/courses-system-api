@@ -1,8 +1,12 @@
 class ServerError extends Error {
     public errorCode: number;
 
-    constructor(message: string, errorCode: number = 422) {
-        super(message);
+    constructor(
+        message: string,
+        errorCode: number = 422,
+        options?: ErrorOptions
+    ) {
+        super(message, options);
         this.name = this.constructor.name;
         this.errorCode = errorCode;
     }

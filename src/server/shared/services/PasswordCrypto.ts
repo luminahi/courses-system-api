@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { DataError } from "../errors/index.js";
+import { ServerError } from "../errors/index.js";
 
 const hashPassword = async (password: string) => {
     let hashedPassword = "";
@@ -9,7 +9,7 @@ const hashPassword = async (password: string) => {
         hashedPassword = await bcrypt.hash(password, salt);
     } catch (err: unknown) {
         if (err instanceof Error) {
-            throw new DataError(err.message);
+            throw new ServerError(err.message);
         }
     }
 
@@ -22,7 +22,7 @@ const verifyPassword = async (password: string, hashedPassword: string) => {
         return result;
     } catch (err: unknown) {
         if (err instanceof Error) {
-            throw new DataError(err.message);
+            throw new ServerError(err.message);
         }
     }
 };

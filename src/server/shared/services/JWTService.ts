@@ -1,10 +1,5 @@
 import jwt from "jsonwebtoken";
-import {
-    AuthError,
-    DataError,
-    InternalError,
-    ServerError,
-} from "../errors/index.js";
+import { AuthError, ServerError } from "../errors/index.js";
 
 interface ISignUser {
     email?: string;
@@ -15,7 +10,7 @@ interface ISignUser {
 const generateAccessToken = (data: ISignUser): string => {
     try {
         if (!process.env.JWT_SECRET)
-            throw new DataError("jwt secret undefined");
+            throw new ServerError("jwt secret undefined");
 
         const token = jwt.sign(data, process.env.JWT_SECRET, {
             algorithm: "HS256",
@@ -26,14 +21,14 @@ const generateAccessToken = (data: ISignUser): string => {
     } catch (err: unknown) {
         if (err instanceof AuthError) throw err;
         if (err instanceof Error) throw new ServerError(err.message);
-        throw new InternalError("internal error");
+        throw new ServerError("internal error");
     }
 };
 
 const verifyAccessToken = (token: string): ISignUser => {
     try {
         if (!process.env.JWT_SECRET)
-            throw new DataError("jwt secret undefined");
+            throw new ServerError("jwt secret undefined");
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if (typeof decoded === "string") throw new AuthError("invalid token");
@@ -42,7 +37,7 @@ const verifyAccessToken = (token: string): ISignUser => {
     } catch (err: unknown) {
         if (err instanceof AuthError) throw err;
         if (err instanceof Error) throw new ServerError(err.message);
-        throw new InternalError("internal error");
+        throw new ServerError("internal error");
     }
 };
 
