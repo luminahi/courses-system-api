@@ -7,4 +7,6 @@ run:
 -   npm setup
 -   npm start
 
-application will be running at http://localhost:3000, but you can modify the .env to your liking.
+application will be running at http://localhost:3000, you can modify 
+the init.js to your liking then run `node init.js` or `npm run setup`
+to update host, port, jwt token and node_env.
