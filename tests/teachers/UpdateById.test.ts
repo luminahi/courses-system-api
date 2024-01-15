@@ -32,7 +32,7 @@ describe("teacher path PUT by id", () => {
             .get("/api/v1/teachers/1")
             .auth(accessToken, { type: "bearer" });
 
-        expect(res2.body.result).toEqual({ id: 1, ...teacher });
+        expect(res2.body).toEqual({ id: 1, ...teacher });
     });
 
     it("sends a param not allowed", async () => {
@@ -43,7 +43,7 @@ describe("teacher path PUT by id", () => {
         expect(res.status).toBe(400);
     });
 
-    it("sends a proper param request", async () => {
+    it("sends a proper param request without auth", async () => {
         const teacher: Omit<ITeacher, "id"> = {
             email: "test@gmail.com",
             lastName: "firstTest",
@@ -55,7 +55,7 @@ describe("teacher path PUT by id", () => {
         expect(res1.status).toBe(401);
     });
 
-    it("sends a param not allowed", async () => {
+    it("sends a param not allowed without auth", async () => {
         const res = await testServer.put("/api/v1/teachers/-1");
         expect(res.status).toBe(401);
     });

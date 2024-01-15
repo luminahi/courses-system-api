@@ -15,10 +15,10 @@ describe("course path GET all", () => {
         const res = await testServer
             .get("/api/v1/courses")
             .auth(accessToken, { type: "bearer" });
-        const { queryResult } = res.body;
+        const { page, size } = res.body;
 
-        expect(queryResult.page).toBe(1);
-        expect(queryResult.size).toBe(5);
+        expect(page).toBe(1);
+        expect(size).toBe(5);
         expect(res.status).toBe(200);
     });
 
@@ -26,10 +26,10 @@ describe("course path GET all", () => {
         const res = await testServer
             .get("/api/v1/courses/?size=3&page=3")
             .auth(accessToken, { type: "bearer" });
-        const { queryResult } = res.body;
+        const { page, size } = res.body;
 
-        expect(queryResult.page).toBe(3);
-        expect(queryResult.size).toBe(3);
+        expect(page).toBe(3);
+        expect(size).toBe(3);
         expect(res.status).toBe(200);
     });
 
@@ -41,17 +41,17 @@ describe("course path GET all", () => {
         expect(res.status).toBe(400);
     });
 
-    it("sends a request with no query", async () => {
+    it("sends a request with no query without auth", async () => {
         const res = await testServer.get("/api/v1/courses");
         expect(res.status).toBe(401);
     });
 
-    it("sends a request with a specific query", async () => {
+    it("sends a request with a specific query without auth", async () => {
         const res = await testServer.get("/api/v1/courses/?size=3&page=3");
         expect(res.status).toBe(401);
     });
 
-    it("sends a request with invalid query values", async () => {
+    it("sends a request with invalid query values without auth", async () => {
         const res = await testServer.get("/api/v1/courses/?size=@&page=!");
         expect(res.status).toBe(401);
     });

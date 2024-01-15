@@ -20,8 +20,8 @@ describe("course path DELETE by id", () => {
             .get("/api/v1/courses/1")
             .auth(accessToken, { type: "bearer" });
 
-        expect(res1.status).toBe(200);
-        expect(res1.body).toEqual({ default: "course deleted" });
+        expect(res1.status).toBe(204);
+        expect(res1.body).toEqual({});
 
         expect(res2.status).toBe(404);
         expect(res2.body).toEqual({ error: "course not found" });

@@ -17,14 +17,14 @@ describe("course path PUT by id", () => {
             .send({ name: "java course" })
             .auth(accessToken, { type: "bearer" });
 
-        expect(res1.status).toBe(200);
-        expect(res1.body).toEqual({ default: "course updated" });
+        expect(res1.status).toBe(204);
+        expect(res1.body).toEqual({});
 
         const res2 = await testServer
             .get("/api/v1/courses/1")
             .auth(accessToken, { type: "bearer" });
 
-        expect(res2.body.result).toEqual({ id: 1, name: "java course" });
+        expect(res2.body).toEqual({ id: 1, name: "java course" });
     });
 
     it("sends a param not allowed", async () => {
