@@ -12,9 +12,9 @@ const queryValidation: RequestHandler = async (req, res, next) => {
         (req.query as unknown) = await querySchema.validate(req.query);
         next();
     } catch (err) {
-        if (err instanceof yup.ValidationError) {
+        if (err instanceof yup.ValidationError)
             return res.status(400).json({ errors: { ...err.errors } });
-        }
+        return res.status(500).json({ error: "internal error" });
     }
 };
 

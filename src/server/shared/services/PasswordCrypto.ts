@@ -17,14 +17,7 @@ const hashPassword = async (password: string) => {
 };
 
 const verifyPassword = async (password: string, hashedPassword: string) => {
-    try {
-        const result = await bcrypt.compare(password, hashedPassword);
-        return result;
-    } catch (err: unknown) {
-        if (err instanceof Error) {
-            throw new ServerError(err.message);
-        }
-    }
+    return await bcrypt.compare(password, hashedPassword);
 };
 
 export { hashPassword, verifyPassword };

@@ -11,9 +11,9 @@ const paramsValidation: RequestHandler = async (req, res, next) => {
         await paramsSchema.validate(req.params);
         next();
     } catch (err) {
-        if (err instanceof yup.ValidationError) {
+        if (err instanceof yup.ValidationError)
             return res.status(400).json({ errors: { ...err.errors } });
-        }
+        return res.status(500).json({ error: "internal error" });
     }
 };
 

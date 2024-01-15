@@ -1,7 +1,6 @@
 import * as yup from "yup";
 import { RequestHandler } from "express";
 import { ITeacher } from "../../../../database/models/index.js";
-import { ServerError, errorHandler } from "../../../errors/index.js";
 
 const bodySchema: yup.Schema<Partial<Omit<ITeacher, "id">>> = yup
     .object()
@@ -19,13 +18,15 @@ const bodyValidation: RequestHandler = async (req, res, next) => {
         });
 
         if (Object.keys(bodyRes).length === 0)
-            throw new ServerError("the request body is empty", 400);
+            throw new Error("the request body is empty");
 
-        next();
+        return next();
     } catch (err: unknown) {
         if (err instanceof yup.ValidationError)
             return res.status(400).json({ errors: { ...err.errors } });
-        errorHandler(err, res);
+        if (err instanceof Error)
+            return res.status(400).json({ error: err.message });
+        return res.status(500).json({ error: "internal error" });
     }
 };
 

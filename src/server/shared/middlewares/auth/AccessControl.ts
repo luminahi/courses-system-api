@@ -2,7 +2,6 @@ import { RequestHandler } from "express";
 import { verifyAccessToken } from "../../services/JWTService.js";
 import { ServerError } from "../../errors/ServerError.js";
 import { AuthError } from "../../errors/AuthError.js";
-import { errorHandler } from "../../errors/ErrorHandler.js";
 
 const accessControl: RequestHandler = (req, res, next) => {
     const { authorization } = req.headers;
@@ -22,7 +21,11 @@ const accessControl: RequestHandler = (req, res, next) => {
         if (Date.now() > payload.exp) throw new ServerError("token expired");
         return next();
     } catch (err: unknown) {
-        errorHandler(err, res);
+        if (err instanceof AuthError)
+            return res.status(err.errorCode).json({ error: err.message });
+        if (err instanceof ServerError)
+            return res.status(err.errorCode).json({ error: err.message });
+        return res.status(500).json({ error: "internal error" });
     }
 };
 
