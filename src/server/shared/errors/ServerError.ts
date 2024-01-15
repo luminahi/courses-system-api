@@ -3,7 +3,7 @@ class ServerError extends Error {
 
     constructor(
         message: string,
-        errorCode: number = 422,
+        errorCode: number = 500,
         options?: ErrorOptions
     ) {
         super(message, options);
