@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { CoursesProvider } from "../../database/providers/courses/index.js";
 
-const getAll = async (req: Request, res: Response) => {
+const getAll = async (req: Request, res: Response, next: NextFunction) => {
     let { page, size } = req.query;
     page = page ?? 1;
     size = size ?? 5;
@@ -23,7 +23,7 @@ const getAll = async (req: Request, res: Response) => {
         return res.status(200).json(queryResult);
     }
 
-    return res.status(400).json({ error: "error getting courses" });
+    return next(result);
 };
 
 export { getAll };

@@ -1,23 +1,23 @@
-import { RequestHandler } from "express";
+import { NextFunction, Request, Response } from "express";
 import { UsersProvider } from "../../database/providers/users/index.js";
-import { errorHandler, AuthError } from "../../shared/errors/index.js";
 import { verifyPassword } from "../../shared/services/PasswordCrypto.js";
 import { generateAccessToken } from "../../shared/services/JWTService.js";
+import { Result } from "../../shared/util/Result.js";
 
-const signIn: RequestHandler = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const user = await UsersProvider.getByEmail(email);
+const signIn = async (req: Request, res: Response, next: NextFunction) => {
+    const { email, password } = req.body;
 
-        const isValid = await verifyPassword(password, user.password);
-        if (!isValid) throw new AuthError("invalid email or password");
+    const result = await UsersProvider.getByEmail(email);
+    if (result.isEmpty()) return next(result);
 
-        const accessToken = generateAccessToken({ email, iat: Date.now() });
+    const isValid = await verifyPassword(password, result.get()!.password);
+    if (!isValid) return next(Result.empty());
 
-        return res.status(200).json({ accessToken });
-    } catch (err: unknown) {
-        errorHandler(err, res);
-    }
+    const accessToken = generateAccessToken({ email, iat: Date.now() });
+    if (accessToken.isPresent())
+        return res.status(200).json({ accessToken: accessToken.get() });
+
+    return next(accessToken);
 };
 
 export { signIn };

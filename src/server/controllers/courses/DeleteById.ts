@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { CoursesProvider } from "../../database/providers/courses/index.js";
 
-const deleteById = async (req: Request, res: Response) => {
+const deleteById = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     if (!id) return res.status(200).json({ error: "invalid id" });
 
@@ -9,7 +9,7 @@ const deleteById = async (req: Request, res: Response) => {
     if (result.isPresent() && result.get() === 1)
         return res.status(204).json({});
 
-    return res.status(404).json({ error: "course not found" });
+    return next(result);
 };
 
 export { deleteById };
