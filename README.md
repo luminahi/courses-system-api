@@ -4,7 +4,7 @@ API using Node.js(21.1.0) with Express, TypeScript, Knex, Jest.
 
 run:
 
--   npm setup
+-   npm run setup
 -   npm start
 
 application will be running at http://localhost:3000, you can modify 
